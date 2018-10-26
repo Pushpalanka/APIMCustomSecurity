@@ -10,7 +10,7 @@ before sending the request to the backend.
 ## Instructions to deploy
 
 1. Build `token-server` using `mvn clean install`. 
-2. Deploy the 'target/token-service.war' in a tomcat based server. For this demo, copy that into `repository/deployment/server/webapps` folder.
+2. Deploy the `target/token-service.war` in a tomcat based server. For this demo, copy that into `repository/deployment/server/webapps` folder.
 3. Build `CustomAccessTokenHandler` using `mvn clean install`.
 4. Copy `CustomAccessTokenHandler/target/com.wso2.carbon.apimgt.custom.handler-1.0.0.jar` into `repository/components/lib` folder.
 5. Open `repository/resources/api_templates/velocity_template.xml`. This is used as the template when creating an API synapse configuration. 
