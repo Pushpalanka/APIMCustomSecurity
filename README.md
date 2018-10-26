@@ -10,7 +10,7 @@ before sending the request to the backend.
 ## Instructions to deploy
 
 1. Build `token-server` using `mvn clean install`. 
-2. Deploy the 'token-service.war' in a tomcat based server. For this demo, copy that into `repository/deployment/server/webapps` folder.
+2. Deploy the 'target/token-service.war' in a tomcat based server. For this demo, copy that into `repository/deployment/server/webapps` folder.
 3. Build `CustomAccessTokenHandler` using `mvn clean install`.
 4. Copy `CustomAccessTokenHandler/target/com.wso2.carbon.apimgt.custom.handler-1.0.0.jar` into `repository/components/lib` folder.
 5. Open `repository/resources/api_templates/velocity_template.xml`. This is used as the template when creating an API synapse configuration. 
@@ -49,7 +49,8 @@ Once it is added, the file will look like below:
 
 Now we are done with configurations of API Manager. 
 
-6. Restart the API Manager server by executing `./wso2server.sh restart` from `/bin` folder. 
+6. Restart the API Manager server by executing `./wso2server.sh restart` from `/bin` folder. Wait till the server starts.
+
 7. Now create and publish an API. We can use the sample Pizzashack API. (Or if you have an existing API, 
 republish it by clicking on the API, then Edit -> Manage -> Save & Publish.)
 
@@ -90,6 +91,9 @@ In the file under `<handlers>` section below, we should be able to see the handl
 
 10. You would be able to see below in the server logs.
 
+
+### Request coming to API Manager
+
 ```
 [2018-10-26 13:31:53,061] DEBUG - wire HTTPS-Listener I/O dispatcher-6 >> "POST /pizzashack/1.0.0/order HTTP/1.1[\r][\n]"
 [2018-10-26 13:31:53,061] DEBUG - wire HTTPS-Listener I/O dispatcher-6 >> "Host: 172.17.0.1:8243[\r][\n]"
@@ -107,7 +111,11 @@ In the file under `<handlers>` section below, we should be able to see the handl
 [2018-10-26 13:31:53,061] DEBUG - wire HTTPS-Listener I/O dispatcher-6 >> "  "clientId": "abcdefg",[\n]"
 [2018-10-26 13:31:53,061] DEBUG - wire HTTPS-Listener I/O dispatcher-6 >> "  "clientSecret": "pqrstuv"[\n]"
 [2018-10-26 13:31:53,061] DEBUG - wire HTTPS-Listener I/O dispatcher-6 >> "}"
-[2018-10-26 13:31:53,263]  INFO - CarbonAuthenticationUtil 'admin@carbon.super [-1234]' logged in at [2018-10-26 13:31:53,263+0530] from IP address 
+```
+
+### Request going to backend from API Manager
+
+```
 [2018-10-26 13:31:53,361] DEBUG - wire HTTPS-Sender I/O dispatcher-3 << "POST /am/sample/pizzashack/v1/api/order HTTP/1.1[\r][\n]"
 [2018-10-26 13:31:53,361] DEBUG - wire HTTPS-Sender I/O dispatcher-3 << "Authorization: ABC YWJjZGVmZy0tcHFyc3R1dg[\r][\n]"
 [2018-10-26 13:31:53,361] DEBUG - wire HTTPS-Sender I/O dispatcher-3 << "Origin: https://localhost:9443[\r][\n]"
@@ -130,7 +138,7 @@ In the file under `<handlers>` section below, we should be able to see the handl
 [2018-10-26 13:31:53,362] DEBUG - wire HTTPS-Sender I/O dispatcher-3 << "[\r][\n]"
 ```
 
-The below header above will be sent to the backend request.
+You can see from above below `Authorization` header above will be sent to the backend request.
 
 ```
 [2018-10-26 13:31:53,361] DEBUG - wire HTTPS-Sender I/O dispatcher-3 << "Authorization: ABC YWJjZGVmZy0tcHFyc3R1dg[\r][\n]"
